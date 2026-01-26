@@ -1,23 +1,20 @@
-
 import express from 'express';
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import dotenv from 'dotenv';
-dotenv.config();
-
 import productRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
 import viewsRouter from './routes/viewsRouter.js';
 import __dirname from './utils/constantsUtil.js';
 import websocket from './websocket.js';
-
 import { initializePassport } from './config/passport.config.js';
 import authRouter from './routes/auth.Routes.js';
 import SessionRoutes from './routes/session.Routes.js';
 import UserRoutes from './routes/user.Routes.js';
 import { authenticateToken, authorizeRole } from './Middlewares/auth.Middlewares.js';
+dotenv.config();
 
 const app = express();
 
@@ -41,12 +38,10 @@ app.use(express.static('public'));
 initializePassport();
 app.use(passport.initialize());
 
-// Routers del TP Jorge.
+// Routers
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/', viewsRouter);
-
-// Routers del TP Cristian.
 app.use('/api/users', UserRoutes);
 app.use('/api/auth', authRouter);
 app.use('/api/sessions', SessionRoutes);

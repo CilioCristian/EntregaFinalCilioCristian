@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'claveSecretaTP'; // Lo ideal es usar una variable de entorno.
+const JWT_SECRET = 'claveSecretaTP';
 
 // Middleware que revisa si el token es válido.
 export const authenticateToken = (req, res, next) => {

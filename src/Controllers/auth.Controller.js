@@ -32,7 +32,7 @@ class AuthController {
       // Respondemos con éxito y devolvemos el usuario creado.
       res.json({ status: 'success', payload: user });
     } catch (error) {
-      // Si algo falla, devolvemos un error genérico.
+      // Si algo falla, devolvemos un error 
       res.status(500).json({ status: 'error', message: error.message });
     }
   }
@@ -68,7 +68,7 @@ class AuthController {
         token
       });
     } catch (error) {
-      // Si algo falla, devolvemos un error genérico.
+      // Si algo falla, devolvemos un error
       res.status(500).json({ status: 'error', message: error.message });
     }
   }
