@@ -9,7 +9,7 @@ class AuthController {
   // Esta función se encarga de registrar un nuevo usuario.
   static async registerUser(req, res) {
     try {
-      const { first_name, last_name, email, password, role } = req.body;
+      const { first_name, last_name, email, password, age,  role } = req.body;
 
       // Primero revisamos si ya existe alguien con ese email.
       const exist = await userModel.findOne({ email });
@@ -26,6 +26,7 @@ class AuthController {
         last_name,
         email,
         password: hashedPassword,
+        age,
         role: role || 'user'
       });
 

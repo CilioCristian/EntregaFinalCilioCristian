@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 const userCollection = 'users';
 
 // Este esquema define cómo se guarda un usuario en la base.
-// Básicamente: nombre, apellido, email único, contraseña y rol.
+// Básicamente: nombre, apellido, email único, edad, contraseña en hash,
+// carrito referenciado y rol con valor por defecto.
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
@@ -18,9 +19,17 @@ const userSchema = new mongoose.Schema({
     unique: true, // No puede repetirse, cada usuario tiene su propio email.
     required: true
   },
+  age: {
+    type: Number,
+    required: true // La edad también es obligatoria.
+  },
   password: {
     type: String,
-    required: true // La contraseña siempre es necesaria.
+    required: true // La contraseña siempre es necesaria (se guarda en formato hash).
+  },
+  cart: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'carts' // Referencia al modelo de carritos.
   },
   role: {
     type: String,

@@ -26,7 +26,7 @@ class UserController {
   // Esta crea un usuario nuevo directo en la base (sin pasar por login/registro con JWT).
   static async createUser(req, res) {
     try {
-      const { first_name, last_name, email, password, role } = req.body;
+      const { first_name, last_name, email, password, age, role, } = req.body;
 
       // Revisamos si ya existe alguien con ese email.
       const exist = await UserModel.findOne({ email });
@@ -41,6 +41,7 @@ class UserController {
         last_name,
         email,
         password: hashedPassword,
+        age,
         role: role || 'user'
       });
 
