@@ -1,10 +1,12 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
-import UserModel from '../dao/models/user.Model.js';
+import userRepository from '../repositories/user.repository.js';
+import config from '../config/config.js';
 
 // Acá definimos la clave secreta que se usa para firmar y validar los tokens.
-// Si no está en las variables de entorno, usamos una por defecto.
-const JWT_SECRET = process.env.JWT_SECRET || 'claveSecretaTP';
+// Ahora la tomamos directamente desde config.js (que lee el .env).
+// En una arquitectura profesional no deberíamos tener una clave hardcodeada.
+const JWT_SECRET = config.JWT_SECRET;
 
 // Estas opciones le dicen a Passport cómo sacar el token del header
 // y cuál es la clave que debe usar para verificarlo.
@@ -17,11 +19,15 @@ const opts = {
 // Básicamente: cada vez que llega un token, lo decodifica y busca el usuario en la base.
 export const initializePassport = () => {
   passport.use(
-    'jwt',
+    // Cambiamos el nombre de la estrategia a "current"
+    // porque la consigna pide trabajar con la estrategia "current".
+    'current',
     new JwtStrategy(opts, async (jwt_payload, done) => {
       try {
-        // Buscamos al usuario en la base usando el id que venía en el token.
-        const user = await UserModel.findById(jwt_payload.id);
+        // Buscamos al usuario usando el Repository (no el Model directamente).
+        // Esto respeta la arquitectura en capas:
+        // Passport → Repository → DAO/Model → Base de Datos
+        const user = await userRepository.getById(jwt_payload.id);
 
         // Si no existe, devolvemos false para que no pase la autenticación.
         if (!user) {

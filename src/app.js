@@ -9,11 +9,13 @@ import cartRouter from './routes/cartRouter.js';
 import viewsRouter from './routes/viewsRouter.js';
 import __dirname from './utils/constantsUtil.js';
 import websocket from './websocket.js';
-import { initializePassport } from './config/passport.config.js';
+import { initializePassport } from './Config/passport.Config.js';
 import authRouter from './routes/auth.Routes.js';
 import SessionRoutes from './routes/session.Routes.js';
 import UserRoutes from './routes/user.Routes.js';
 import { authenticateToken, authorizeRole } from './Middlewares/auth.Middlewares.js';
+import nodemailer from 'nodemailer';   // ✅ solo esta importación
+
 dotenv.config();
 
 const app = express();

@@ -35,11 +35,31 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['user', 'admin'], // Solo puede ser "user" o "admin".
     default: 'user' // Si no se aclara, arranca como "user".
+  },
+
+  // Estos campos se usan para el sistema de recuperación de contraseña.
+  // Guardamos el token y la fecha de expiración.
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordExpires: {
+    type: Date
   }
+
 }, {
   // Esto agrega automáticamente las fechas de creación y actualización.
   timestamps: true
 });
+
+// Este método se ejecuta cuando el usuario se convierte en JSON.
+// Lo usamos para evitar que se envíen datos sensibles como la contraseña.
+userSchema.methods.toJSON = function () {
+  const user = this.toObject();
+  delete user.password;
+  delete user.resetPasswordToken;
+  delete user.resetPasswordExpires;
+  return user;
+};
 
 // Exportamos el modelo para usarlo en controladores y servicios.
 const UserModel = mongoose.model(userCollection, userSchema);

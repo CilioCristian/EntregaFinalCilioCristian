@@ -4,11 +4,15 @@ import authController from '../controllers/auth.Controller.js';
 const router = Router();
 
 // Ruta para registrar un usuario nuevo.
-// Cuando se hace POST a /register, se ejecuta el método registerUser del controlador.
 router.post('/register', authController.registerUser);
 
 // Ruta para iniciar sesión.
-// Cuando se hace POST a /login, se ejecuta el método loginUser del controlador.
 router.post('/login', authController.loginUser);
+
+// Ruta para solicitar recuperación de contraseña.
+router.post('/forgot-password', authController.forgotPassword);
+
+// Ruta para resetear contraseña con token.
+router.post('/reset-password/:token', authController.resetPassword);
 
 export default router;
