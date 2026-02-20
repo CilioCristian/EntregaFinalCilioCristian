@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import userRepository from '../repositories/user.repository.js';
-import config from '../config/config.js';
+import config from './config.js';
 
 // Acá definimos la clave secreta que se usa para firmar y validar los tokens.
 // Ahora la tomamos directamente desde config.js (que lee el .env).

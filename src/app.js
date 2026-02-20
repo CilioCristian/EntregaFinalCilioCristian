@@ -4,17 +4,19 @@ import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import dotenv from 'dotenv';
-import productRouter from './routes/productRouter.js';
-import cartRouter from './routes/cartRouter.js';
-import viewsRouter from './routes/viewsRouter.js';
-import __dirname from './utils/constantsUtil.js';
-import websocket from './websocket.js';
-import { initializePassport } from './Config/passport.Config.js';
-import authRouter from './routes/auth.Routes.js';
-import SessionRoutes from './routes/session.Routes.js';
-import UserRoutes from './routes/user.Routes.js';
-import { authenticateToken, authorizeRole } from './Middlewares/auth.Middlewares.js';
+import productRouter from '../src/routes/productRouter.js';
+import cartRouter from '../src/routes/cartRouter.js';
+import viewsRouter from '../src/routes/viewsRouter.js';
+import __dirname from '../src/utils/constantsUtil.js';
+import websocket from '../src/websocket.js';
+import { initializePassport } from './config/passport.Config.js';
+import authRouter from '../src/routes/auth.Routes.js';
+import SessionRoutes from '../src/routes/session.Routes.js';
+import UserRoutes from '../src/routes/user.Routes.js';
+import { authenticateToken, authorizeRole } from './middlewares/auth.Middlewares.js';
 import nodemailer from 'nodemailer';   // ✅ solo esta importación
+import UserDTO from '../src/dto/UserCurrentDTO.js';   // ✅ import DTO
+import UserRepository from './repositories/user.repository.js' ; // ✅ import Repository
 
 dotenv.config();
 
@@ -48,9 +50,18 @@ app.use('/api/users', UserRoutes);
 app.use('/api/auth', authRouter);
 app.use('/api/sessions', SessionRoutes);
 
-// Ruta protegida: devuelve el usuario logueado.
-app.get('/current', authenticateToken, (req, res) => {
-  res.json({ user: req.user });
+// Instancia del repositorio
+const userRepository = new UserRepository();
+
+// Ruta protegida: devuelve el usuario logueado con DTO
+app.get('/current', authenticateToken, async (req, res) => {
+  try {
+    const user = await userRepository.getById(req.user.id); // buscar en DB
+    const safeUser = new UserDTO(user); // aplicar DTO
+    res.json({ status: 'success', payload: safeUser });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
 });
 
 // Ruta protegida: solo accesible para admins.

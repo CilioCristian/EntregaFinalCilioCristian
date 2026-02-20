@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import config from "../Config/config.js";
+import config from "../config/config.js";
 import mailDAO from "../dao/mail.Dao.js";
 
 class MailService {

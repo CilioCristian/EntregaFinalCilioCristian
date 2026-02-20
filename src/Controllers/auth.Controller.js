@@ -2,7 +2,7 @@ import userModel from '../dao/models/user.Model.js';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import UserRepository from '../Repositories/user.Repository.js';
+import UserRepository from '../repositories/user.repository.js';
 import UserDao from '../dao/UserDao.js';
 import jwt from 'jsonwebtoken';
 

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import UserDao from '../dao/UserDao.js';
-import UserRepository from '../repositories/user.Repository.js';
+import UserRepository from '../repositories/user.repository.js';
 import UserDTO from '../dto/UserCurrentDTO.js'; // DTO para /current
 
 const userDao = new UserDao();

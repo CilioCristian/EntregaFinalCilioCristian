@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authenticateToken } from '../Middlewares/auth.Middlewares.js';
+import { authenticateToken } from '../middlewares/auth.Middlewares.js';
 import UserCurrentDTO from '../dto/UserCurrentDTO.js';
 
 const router = Router();

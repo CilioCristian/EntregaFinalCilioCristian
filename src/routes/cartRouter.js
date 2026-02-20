@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { productDBManager } from '../dao/productDBManager.js';
 import { cartDBManager } from '../dao/cartDBManager.js';
-import { authenticateToken, authorizeRole } from '../Middlewares/auth.Middlewares.js';
+import { authenticateToken, authorizeRole } from '../middlewares/auth.Middlewares.js';
 
 const router = Router();
 const ProductService = new productDBManager();
