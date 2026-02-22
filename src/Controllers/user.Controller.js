@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'; // librería para encriptar contraseñas
 import UserDao from '../dao/UserDao.js'; // acceso directo a la base de datos
-import UserRepository from '../repositories/user.repository.js'; // capa intermedia para manejar lógica
+import UserRepository from '../repositories/user.Repository.js'; // capa intermedia para manejar lógica
 import UserDTO from '../dto/UserCurrentDTO.js'; // DTO para devolver datos seguros en /current
 
 const userDao = new UserDao();

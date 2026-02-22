@@ -22,7 +22,7 @@ router.get('/:pid', async (req, res) => {
   }
 });
 
-// Crear producto → solo admin
+// Crear producto, solo admin
 router.post(
   '/',
   authenticateToken,
@@ -41,7 +41,7 @@ router.post(
   }
 );
 
-// Actualizar producto → solo admin
+// Actualizar producto, solo admin
 router.put(
   '/:pid',
   authenticateToken,
@@ -60,7 +60,7 @@ router.put(
   }
 );
 
-// Eliminar producto → solo admin
+// Eliminar producto, solo admin
 router.delete('/:pid', authenticateToken, authorizeRole('admin'), async (req, res) => {
   try {
     const result = await ProductService.deleteProduct(req.params.pid);

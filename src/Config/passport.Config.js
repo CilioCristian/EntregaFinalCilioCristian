@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
-import userRepository from '../repositories/user.repository.js';
+import userRepository from '../repositories/user.Repository.js';
 import config from './config.js';
 
 // Acá definimos la clave secreta que se usa para firmar y validar los tokens.
@@ -26,7 +26,7 @@ export const initializePassport = () => {
       try {
         // Buscamos al usuario usando el Repository (no el Model directamente).
         // Esto respeta la arquitectura en capas:
-        // Passport → Repository → DAO/Model → Base de Datos
+        // Passport, Repository, DAO/Model, Base de Datos
         const user = await userRepository.getById(jwt_payload.id);
 
         // Si no existe, devolvemos false para que no pase la autenticación.

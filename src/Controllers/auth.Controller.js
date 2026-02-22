@@ -2,7 +2,7 @@ import userModel from '../dao/models/user.Model.js';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import UserRepository from '../repositories/user.repository.js';
+import UserRepository from '../repositories/user.Repository.js';
 import UserDao from '../dao/UserDao.js';
 import jwt from 'jsonwebtoken';
 
@@ -10,8 +10,6 @@ import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET || 'claveSecretaTP';
 
 const userDao = new UserDao();
-
-//const userRepository = new UserRepository(userDao);
 
 class AuthController {
   // Esta función se encarga de registrar un nuevo usuario.

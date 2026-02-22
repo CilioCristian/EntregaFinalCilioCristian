@@ -1,9 +1,5 @@
 import UserModel from "../dao/models/user.Model.js";
 
-// El Repository funciona como una capa intermedia entre
-// la lógica de negocio (Service) y la base de datos (DAO/Model).
-// Su objetivo es desacoplar el acceso a datos.
-
 export default class UserRepository {
   
   // Buscar usuario por ID
